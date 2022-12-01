@@ -11,8 +11,10 @@ module.exports = ({ bot }) => {
         return;
       }
 
+      console.log(channel)
+
       // config.typingProxy: forward user typing in a DM to the modmail thread
-      if (config.typingProxy && (channel instanceof Eris.PrivateChannel)) {
+      if (config.typingProxy && channel.guild == null) {
         const thread = await threads.findOpenThreadByUserId(user.id);
         if (! thread) return;
 
