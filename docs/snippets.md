@@ -25,8 +25,6 @@ Inside a Modmail thread, use `??shortcut` to send a snippet to the user, replaci
 
 To send a snippet anonymously, use `???shortcut`.
 
-*The prefixes `??` and `???` can be changed with the bot options `snippetPrefix` and `snippetPrefixAnon` respectively.*
-
 #### Example
 To send a snippet called "hi", use the following command:
 
