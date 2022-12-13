@@ -182,7 +182,7 @@ async function getSelfUrl(path = "") {
     return `${config.url}/${path}`;
   } else {
     const port = config.port || 8890;
-    const ip = config.localhost == "on" ? "localhost" : await publicIp.v4();
+    const ip = config.logOptions.localhost == "on" ? "localhost" : await publicIp.v4();
     return `http://${ip}:${port}/${path}`;
   }
 }
