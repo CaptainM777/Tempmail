@@ -73,8 +73,6 @@ function errorHandler(err) {
   } else {
     console.error("Unknown error occurred");
   }
-
-  process.exit(1);
 }
 
 process.on("uncaughtException", errorHandler);
