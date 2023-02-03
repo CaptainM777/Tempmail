@@ -134,7 +134,7 @@ module.exports = ({ bot, knex, config, commands }) => {
   commands.addInboxServerCommand("unblock", "<userId:userId> [unblockDelay:delay]", unblockCmd);
   commands.addInboxServerCommand("unblock", "[unblockDelay:delay]", unblockCmd);
 
-  commands.addInboxServerCommand("is_blocked",  "[userId:userId]",async (msg, args, thread) => {
+  commands.addInboxServerCommand("isblocked",  "[userId:userId]",async (msg, args, thread) => {
     const userIdToCheck = args.userId || (thread && thread.user_id);
     if (! userIdToCheck) return;
 
@@ -157,5 +157,5 @@ module.exports = ({ bot, knex, config, commands }) => {
         allowedMentions: { users: [userIdToCheck] },
       });
     }
-  });
+  }, { aliases: ["blocked"] });
 };
