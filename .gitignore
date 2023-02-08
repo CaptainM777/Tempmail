@@ -4,6 +4,7 @@
 /welcome.png
 /update.sh
 *.sh
+*.log
 
 # Config files
 /config.*
