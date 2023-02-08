@@ -1,4 +1,5 @@
 const moment = require("moment");
+const fs = require('fs');
 const Eris = require("eris");
 const utils = require("../utils");
 const threads = require("../data/threads");
@@ -196,7 +197,15 @@ module.exports = ({ bot, knex, config, commands }) => {
     const thread = await threads.findOpenThreadByChannelId(channel.id);
     if (! thread) return;
 
-    console.log(`[INFO] Auto-closing thread with ${thread.user_name} because the channel was deleted`);
+    let timestamp = `[${moment.utc().format("YYYY-MM-DD hh:mm:ss A")}]`;
+    let auto_close_log = `${timestamp} [INFO] Auto-closing thread with ${thread.user_name} because the channel was deleted\n`;
+    fs.appendFile('./threads.log', auto_close_log, err => {
+      if (err) {
+        console.log(auto_close_log);
+        console.error(err);
+      }
+    });
+
     if (config.closeMessage) {
       const closeMessage = utils.readMultilineConfigValue(config.closeMessage);
       await thread.sendSystemMessageToUser(closeMessage).catch(() => {});

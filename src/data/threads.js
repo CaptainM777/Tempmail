@@ -1,4 +1,5 @@
 const {User, Member, Message} = require("eris");
+const fs = require("fs");
 
 const transliterate = require("transliteration");
 const moment = require("moment");
@@ -184,8 +185,6 @@ async function createNewThreadForUser(user, opts = {}) {
       if (hookResult.cancelled) return;
     }
 
-    console.log(`[NOTE] Creating new thread channel ${opts.channelName}`);
-
     // Figure out which category we should place the thread channel in
     let newThreadCategoryId = (hookResult && hookResult.categoryId) || opts.categoryId || null;
 
@@ -210,6 +209,14 @@ async function createNewThreadForUser(user, opts = {}) {
       createdChannel = await utils.getInboxGuild().createChannel(opts.channelName, DISOCRD_CHANNEL_TYPES.GUILD_TEXT, {
         reason: "New Modmail thread",
         parentID: newThreadCategoryId,
+      });
+
+      let thread_creation_log = `[${moment.utc().format("YYYY-MM-DD hh:mm:ss A")}] Creating new thread channel ${opts.channelName} (${createdChannel.id})\n`
+      fs.appendFile('./threads.log', thread_creation_log, { flag: 'a' }, err => {
+        if (err) {
+          console.log(thread_creation_log);
+          console.error(err);
+        }
       });
     } catch (err) {
       // Fix for disallowed channel names in servers in Server Discovery
