@@ -1,7 +1,10 @@
 {
     "apps": [{
-        "name": "ModMailBot",
+        "name": "Tempmail",
         "cwd": "./",
-        "script": "src/index.js"
+        "script": "src/index.js",
+        "log_date_format": "YYYY-MM-DD HH:mm Z",
+        "max_restarts": 4,
+        "min_uptime": 10000
     }]
 }
